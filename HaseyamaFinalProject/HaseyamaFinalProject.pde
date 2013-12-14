@@ -7,7 +7,7 @@ struct Point
 };
 
 Point piece = {3,7};
-
+int marker = 0;
 int player = 1;
 
 void setup()                    // run once, when the sketch starts
@@ -17,16 +17,22 @@ void setup()                    // run once, when the sketch starts
 
 void loop()                     // run over and over again
 {
+  ClearSlate();
   if (player == 1)
   {
-    DrawPx(piece.x, piece.y,Red);
+    player1();
   }
   if (player == 2)
   {
-    DrawPx(piece.x, piece.y,Blue);
+    player2();
   }
   DisplaySlate();
-  
+  //Insert CheckWinnerCode
+}
+
+void player1()
+{
+  DrawPx(piece.x, piece.y, Red);
   CheckButtonsPress();
   if (Button_Left)
   {
@@ -36,6 +42,11 @@ void loop()                     // run over and over again
   {
     piece.x++;
   }
+  if (Button_A)
+  {
+   // DrawPx(piece.x,______________,Red);
+    player = 2;
+  }
   if (piece.x>7)
   {
     piece.x = 7;
@@ -44,12 +55,32 @@ void loop()                     // run over and over again
   {
     piece.x = 0;
   }
-  ClearSlate();
-  DisplaySlate();
-  
-  CheckButtonsPress();
-  if (Button_A)
-{  
 }
+ 
+void player2()
+{
+  DrawPx(piece.x, piece.y, Blue);
+  CheckButtonsPress();
+  if (Button_Left)
+  {
+    piece.x--;
+  }
+  if (Button_Right)
+  {
+    piece.x++;
+  }
+  if (Button_A)
+  {
+   // DrawPx(piece.x,_______, Blue);
+    player = 1;
+  }
+  if (piece.x>7)
+  {
+    piece.x = 7;
+  }
+  if (piece.x<0)
+  {
+    piece.x = 0;
+  }
 }
 
